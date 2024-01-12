@@ -59,10 +59,10 @@ public class NpcController {
 		return new ResponseEntity<NpcDTO>(dto, HttpStatus.OK);
 	}
 	
-	@PutMapping(value = "/alterar", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
-	public ResponseEntity<NpcDTO> update(@RequestBody NpcDTO dtoInput) {
+	@PutMapping(value = "/alterar/{id}", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
+	public ResponseEntity<NpcDTO> update(@PathVariable Long id, @RequestBody NpcDTO dtoInput) {
 		NpcDTO dto = new NpcDTO();
-		dto = this.mapper.convertEntityToDto(this.service.update(dtoInput));
+		dto = this.mapper.convertEntityToDto(this.service.update(id,dtoInput));
 		return new ResponseEntity<NpcDTO>(dto, HttpStatus.OK);
 	}
 
