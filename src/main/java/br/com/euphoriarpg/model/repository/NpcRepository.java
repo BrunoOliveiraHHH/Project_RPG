@@ -19,5 +19,8 @@ public interface NpcRepository extends JpaRepository<Npc, Long>, JpaSpecificatio
 	
 	@Query(value = "SELECT * FROM NPC WHERE NOME=:nome", nativeQuery = true)
 	List<Npc> findByNome(@Param("nome") String nome);
+	
+	@Query(value = "SELECT * FROM NPC WHERE ID_NPC=:id", nativeQuery = true)
+	Npc findByIdNpc(@Param("id") Long id);
 
 }
