@@ -13,6 +13,7 @@ import br.com.euphoriarpg.model.exceptions.AplicacaoException;
 import br.com.euphoriarpg.model.repository.NpcRepository;
 import br.com.euphoriarpg.model.service.NpcService;
 
+
 @Service
 public class NpcServiceImpl implements NpcService {
 
@@ -59,8 +60,8 @@ public class NpcServiceImpl implements NpcService {
 	}
 
 	@Override
-	public Npc update(NpcDTO dado) {
-		Npc npcAtual = repository.findById(dado.getId()).get();
+	public Npc update(Long id, NpcDTO dado) {
+		Npc npcAtual = repository.findByIdNpc(id);
 
 		if (npcAtual == null) {
 			return new Npc();

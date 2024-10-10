@@ -14,7 +14,7 @@ public interface NpcService {
 
 	Npc create(NpcDTO dado);
 
-	Npc update(NpcDTO dado);
+	Npc update(Long id, NpcDTO dado);
 
 	void delete(Long id);
 
