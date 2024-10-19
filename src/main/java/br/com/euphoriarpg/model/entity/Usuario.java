@@ -1,7 +1,5 @@
 package br.com.euphoriarpg.model.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,8 +27,8 @@ public class Usuario {
 	@Column(name = "EMAIL")
 	private String email;
 
-	@Column(name = "DATA_NASCIMENTO")
-	private LocalDateTime dataNascimento;
+	@Column(name = "ANO_NASCIMENTO")
+	private String anoNascimento;
 
 	@Column(name = "LOGIN")
 	private String login;
@@ -43,6 +41,16 @@ public class Usuario {
 
 	public Usuario(String login, String senha) {
 		super();
+		this.login = login;
+		this.senha = senha;
+	}
+
+	public Usuario(Long id, String nome, String email, String anoNascimento, String login, String senha) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.anoNascimento = anoNascimento;
 		this.login = login;
 		this.senha = senha;
 	}
@@ -71,12 +79,11 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public LocalDateTime getDataNascimento() {
-		return dataNascimento;
+	public String getAnoNascimento() {
+		return anoNascimento;
 	}
-
-	public void setDataNascimento(LocalDateTime dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setAnoNascimento(String anoNascimento) {
+		this.anoNascimento = anoNascimento;
 	}
 
 	public String getSenha() {
@@ -87,4 +94,11 @@ public class Usuario {
 		this.senha = senha;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
 }
