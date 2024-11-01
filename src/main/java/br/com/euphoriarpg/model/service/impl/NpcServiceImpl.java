@@ -1,6 +1,5 @@
 package br.com.euphoriarpg.model.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +24,7 @@ public class NpcServiceImpl implements NpcService {
 		List<Npc> listaDados = repository.findAll();
 
 		if (listaDados == null) {
-			return new ArrayList<>();
+			throw new AplicacaoException("Npc não encontrado!");
 		}
 
 		return listaDados;
@@ -36,7 +35,7 @@ public class NpcServiceImpl implements NpcService {
 		Optional<Npc> dado = repository.findById(id);
 
 		if (!dado.isPresent()) {
-			return new Npc();
+			throw new AplicacaoException("Npc não encontrado!");
 		}
 
 		return dado.get();
@@ -47,7 +46,7 @@ public class NpcServiceImpl implements NpcService {
 		Npc npc = repository.getNpc(dado.getNome(), dado.getIdade(), dado.getRaca(), dado.getClasse());
 
 		if (npc != null) {
-			return new Npc();
+			throw new AplicacaoException("Npc já existe!");
 		}
 
 		npc = new Npc();
@@ -64,7 +63,7 @@ public class NpcServiceImpl implements NpcService {
 		Npc npcAtual = repository.findByIdNpc(id);
 
 		if (npcAtual == null) {
-			return new Npc();
+			throw new AplicacaoException("Npc não encontrado!");
 		}
 
 		npcAtual = this.validaCampoUpdate(npcAtual, dado);
@@ -87,7 +86,7 @@ public class NpcServiceImpl implements NpcService {
 		Optional<Npc> dado = repository.findById(id);
 		
 		if(dado.isEmpty()) {
-			throw new AplicacaoException("NPC não existe.");
+			throw new AplicacaoException("Npc não encontrado!");
 		}		
 		repository.deleteById(id);
 	}
@@ -97,7 +96,7 @@ public class NpcServiceImpl implements NpcService {
 		List<Npc> dado = repository.findByNome(nome);
 
 		if (dado == null) {
-			return new ArrayList<>();
+			throw new AplicacaoException("Npc não encontrado!");
 		}
 
 		return dado;

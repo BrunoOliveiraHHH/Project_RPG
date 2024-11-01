@@ -49,20 +49,20 @@ public class ArmaController {
 	public ResponseEntity<ArmaDTO> create(@RequestBody ArmaDTO dtoInput) {
 		ArmaDTO dto = new ArmaDTO();
 		dto = this.mapper.convertEntityToDto(this.service.create(dtoInput));
-		return new ResponseEntity<ArmaDTO>(dto, HttpStatus.OK);
+		return new ResponseEntity<ArmaDTO>(dto, HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/alterar", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
 	public ResponseEntity<ArmaDTO> update(@RequestBody ArmaDTO dtoInput) {
 		ArmaDTO dto = new ArmaDTO();
 		dto = this.mapper.convertEntityToDto(this.service.update(dtoInput));
-		return new ResponseEntity<ArmaDTO>(dto, HttpStatus.OK);
+		return new ResponseEntity<ArmaDTO>(dto, HttpStatus.NO_CONTENT);
 	}
 
 	@SuppressWarnings("rawtypes")
 	@GetMapping(value = "/excluir/{id}")
 	public ResponseEntity delete(@PathVariable Long id) {
 		service.delete(id);
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity(HttpStatus.NO_CONTENT);
 	}
 }
