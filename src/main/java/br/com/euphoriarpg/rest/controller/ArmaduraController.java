@@ -1,4 +1,4 @@
-package br.com.euphoriarpg.controller;
+package br.com.euphoriarpg.rest.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ import br.com.euphoriarpg.model.dto.ArmaduraDTO;
 import br.com.euphoriarpg.model.mapper.ArmaduraMapper;
 import br.com.euphoriarpg.model.service.ArmaduraService;
 import br.com.euphoriarpg.model.util.MediaType;
+import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,28 +35,28 @@ public class ArmaduraController {
 	@GetMapping(value = "/consulta", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<List<ArmaduraDTO>> getAll() {
 		List<ArmaduraDTO> listaDto = new ArrayList<>();
-		listaDto = this.mapper.convertListEntityToListDto(this.service.getAll());
+		listaDto = this.mapper.toListDto(this.service.getAll());
 		return new ResponseEntity<List<ArmaduraDTO>>(listaDto, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/consulta/{id}", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<ArmaduraDTO> getNpc(@PathVariable Long id) {
 		ArmaduraDTO dto = new ArmaduraDTO();
-		dto = this.mapper.convertEntityToDto(this.service.getArmadura(id));
+		dto = this.mapper.toDto(this.service.getById(id));
 		return new ResponseEntity<ArmaduraDTO>(dto, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/salvar", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
 	public ResponseEntity<ArmaduraDTO> create(@RequestBody ArmaduraDTO dtoInput) {
 		ArmaduraDTO dto = new ArmaduraDTO();
-		dto = this.mapper.convertEntityToDto(this.service.create(dtoInput));
+		dto = this.mapper.toDto(this.service.create(dtoInput));
 		return new ResponseEntity<ArmaduraDTO>(dto, HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/alterar", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
-	public ResponseEntity<ArmaduraDTO> update(@RequestBody ArmaduraDTO dtoInput) {
+	@PutMapping(value = "/alterar/{id}", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
+	public ResponseEntity<ArmaduraDTO> update(@PathParam("id") Long id, @RequestBody ArmaduraDTO dtoInput) {
 		ArmaduraDTO dto = new ArmaduraDTO();
-		dto = this.mapper.convertEntityToDto(this.service.update(dtoInput));
+		dto = this.mapper.toDto(this.service.update(id, dtoInput));
 		return new ResponseEntity<ArmaduraDTO>(dto, HttpStatus.OK);
 	}
 

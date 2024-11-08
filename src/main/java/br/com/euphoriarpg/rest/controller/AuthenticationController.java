@@ -1,4 +1,4 @@
-package br.com.euphoriarpg.controller;
+package br.com.euphoriarpg.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

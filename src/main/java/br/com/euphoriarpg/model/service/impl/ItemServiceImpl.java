@@ -35,7 +35,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public Item getItem(Long id) {
+	public Item getById(Long id) {
 		Optional<Item> dado = repository.findById(id);
 
 		if (!dado.isPresent()) {
@@ -59,7 +59,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public Item update(ItemDTO dto) {
+	public Item update(Long id, ItemDTO dto) {
 		Item dadoAtual = repository.getItem(dto.getNome());
 
 		if (dadoAtual == null) {

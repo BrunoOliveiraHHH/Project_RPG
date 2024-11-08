@@ -31,7 +31,7 @@ public class NpcServiceImpl implements NpcService {
 	}
 
 	@Override
-	public Npc getNpc(Long id) {
+	public Npc getById(Long id) {
 		Optional<Npc> dado = repository.findById(id);
 
 		if (!dado.isPresent()) {

@@ -8,17 +8,7 @@ import br.com.euphoriarpg.model.dto.NpcDTO;
 import br.com.euphoriarpg.model.entity.Npc;
 
 @Service
-public interface NpcService {
-
-	List<Npc> getAll();
-
-	Npc create(NpcDTO dado);
-
-	Npc update(Long id, NpcDTO dado);
-
-	void delete(Long id);
-
-	Npc getNpc(Long id);
+public interface NpcService extends GenericService<Npc, NpcDTO>{
 
 	List<Npc> getNpcByNome(String nome);
 
