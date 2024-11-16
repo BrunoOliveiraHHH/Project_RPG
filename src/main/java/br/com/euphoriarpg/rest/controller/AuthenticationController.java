@@ -24,5 +24,17 @@ public class AuthenticationController {
 	public ResponseEntity<Boolean> authentication(@RequestBody AuthenticationDTO dtoInput) {
 		Boolean autenticado = service.authentication(dtoInput);
 		return new ResponseEntity<Boolean>(autenticado, HttpStatus.OK);
-	}	
+	}
+	
+	@PostMapping(value="/encerra-sessao")
+	public ResponseEntity<Boolean> encerraSessao(@RequestBody AuthenticationDTO dtoInput){
+		Boolean encerrado = false;		
+		return new ResponseEntity<Boolean>(encerrado, HttpStatus.OK);
+	}
+	
+	@PostMapping(value="/sessao-ativa")
+	public ResponseEntity<Boolean> sessaoAtiva(@RequestBody AuthenticationDTO dtoInput){
+		Boolean ativa = false;		
+		return new ResponseEntity<Boolean>(ativa, HttpStatus.OK);
+	}
 }
