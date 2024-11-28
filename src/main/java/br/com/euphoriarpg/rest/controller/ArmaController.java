@@ -19,9 +19,7 @@ import br.com.euphoriarpg.model.mapper.ArmaMapper;
 import br.com.euphoriarpg.model.service.ArmaService;
 import br.com.euphoriarpg.model.util.MediaType;
 import jakarta.websocket.server.PathParam;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/arma")
 public class ArmaController {

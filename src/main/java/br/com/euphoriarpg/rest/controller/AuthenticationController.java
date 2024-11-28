@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.euphoriarpg.model.dto.AuthenticationDTO;
 import br.com.euphoriarpg.model.service.AuthenticationService;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/authentication")
 public class AuthenticationController {

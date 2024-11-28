@@ -16,4 +16,5 @@ public class ArmaDTO {
 	private String peso;
 	private String propriedades;
 	private String observacao;
+	private String usuario;
 }

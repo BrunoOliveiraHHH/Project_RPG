@@ -37,4 +37,10 @@ public class Veiculo {
 	@Column(name = "CARGA")
 	private String carga;
 
+	@Override
+	public String toString() {
+		return "Veiculo [id=" + id + ", nome=" + nome + ", custoMoeda=" + custoMoeda + ", deslocamento=" + deslocamento
+				+ ", carga=" + carga + "]";
+	}
+
 }

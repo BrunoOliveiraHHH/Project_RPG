@@ -43,4 +43,10 @@ public class Arma {
 	@Column(name = "OBSERVACAO")
 	private String observacao;
 
+	@Override
+	public String toString() {
+		return "Arma [id=" + id + ", nome=" + nome + ", custoMoeda=" + custoMoeda + ", dadoTipoDano=" + dadoTipoDano
+				+ ", peso=" + peso + ", propriedades=" + propriedades + ", observacao=" + observacao + "]";
+	}
+
 }

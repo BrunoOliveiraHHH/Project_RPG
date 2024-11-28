@@ -46,4 +46,11 @@ public class Autenticacao {
 	@Column(name = "SESSAO_ENCERRADA", nullable = true)
 	private AtivoInativoEnum sessaoEncerrada;
 
+	@Override
+	public String toString() {
+		return "Autenticacao [id=" + id + ", idUsuario=" + idUsuario + ", login=" + login + ", validacao=" + validacao
+				+ ", dataValidade=" + dataValidade + ", sessaoAtiva=" + sessaoAtiva + ", sessaoEncerrada="
+				+ sessaoEncerrada + "]";
+	}
+
 }

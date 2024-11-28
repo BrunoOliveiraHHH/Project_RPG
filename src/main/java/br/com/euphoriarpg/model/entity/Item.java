@@ -40,4 +40,10 @@ public class Item {
 	@Column(name = "OBSERVACAO")
 	private String observacao;
 
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", nome=" + nome + ", custoMoeda=" + custoMoeda + ", descricao=" + descricao
+				+ ", peso=" + peso + ", observacao=" + observacao + "]";
+	}
+
 }

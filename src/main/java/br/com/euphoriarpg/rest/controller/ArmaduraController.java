@@ -19,9 +19,7 @@ import br.com.euphoriarpg.model.mapper.ArmaduraMapper;
 import br.com.euphoriarpg.model.service.ArmaduraService;
 import br.com.euphoriarpg.model.util.MediaType;
 import jakarta.websocket.server.PathParam;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/armadura")
 public class ArmaduraController {
@@ -61,9 +59,9 @@ public class ArmaduraController {
 	}
 
 	@SuppressWarnings("rawtypes")
-	@GetMapping(value = "/excluir/{id}")
-	public ResponseEntity delete(@PathVariable Long id) {
-		service.delete(id);
+	@GetMapping(value = "/excluir/{id},{usuario}")
+	public ResponseEntity delete(@PathParam("id") Long id, @PathParam("usuario") String usuario) {
+		service.delete(id,usuario);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 }

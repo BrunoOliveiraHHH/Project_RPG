@@ -96,4 +96,14 @@ public class Monstro {
 
 	@Column(name = "ACOES_MITICAS", columnDefinition = "TEXT")
 	private String acoesmiticas;
+
+	@Override
+	public String toString() {
+		return "Monstro [id=" + id + ", nome=" + nome + ", tipo=" + tipo + ", tamanho=" + tamanho + ", tendencia="
+				+ tendencia + ", hp=" + hp + ", ca=" + ca + ", desloc_t=" + desloc_t + ", desloc_e=" + desloc_e
+				+ ", desloc_n=" + desloc_n + ", desloc_v=" + desloc_v + ", desloc_s=" + desloc_s + ", bp=" + bp
+				+ ", str=" + str + ", dex=" + dex + ", con=" + con + ", inte=" + inte + ", wis=" + wis + ", cha=" + cha
+				+ ", nd=" + nd + "]";
+	}
+
 }

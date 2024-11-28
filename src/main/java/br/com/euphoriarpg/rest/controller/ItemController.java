@@ -19,9 +19,7 @@ import br.com.euphoriarpg.model.mapper.ItemMapper;
 import br.com.euphoriarpg.model.service.ItemService;
 import br.com.euphoriarpg.model.util.MediaType;
 import jakarta.websocket.server.PathParam;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/item")
 public class ItemController {

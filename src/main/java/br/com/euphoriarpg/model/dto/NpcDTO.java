@@ -14,5 +14,5 @@ public class NpcDTO {
 	private String idade;
 	private String raca;
 	private String classe;
-
+	private String usuario;
 }

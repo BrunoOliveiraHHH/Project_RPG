@@ -18,9 +18,7 @@ import br.com.euphoriarpg.model.dto.NpcDTO;
 import br.com.euphoriarpg.model.mapper.NpcMapper;
 import br.com.euphoriarpg.model.service.NpcService;
 import br.com.euphoriarpg.model.util.MediaType;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/npc")
 public class NpcController {
