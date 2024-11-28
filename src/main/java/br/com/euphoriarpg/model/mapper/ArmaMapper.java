@@ -9,10 +9,33 @@ import br.com.euphoriarpg.model.dto.ArmaDTO;
 import br.com.euphoriarpg.model.entity.Arma;
 
 @Service
-public class ArmaMapper {
+public class ArmaMapper implements GenericMapper<Arma, ArmaDTO>{
+	
+	public List<Arma> listaEntidade;
+	public List<ArmaDTO> listaDTO;
+	public ArmaDTO dto;
+	public Arma entidade;
 
-	public ArmaDTO convertEntityToDto(Arma dado) {
-		ArmaDTO dto = new ArmaDTO();
+	@Override
+	public Arma toEntity(ArmaDTO dado) {
+		entidade = new Arma();
+
+		if (dto != null) {
+			entidade.setId(dado.getId());
+			entidade.setNome(dado.getNome());
+			entidade.setCustoMoeda(dado.getCustoMoeda());
+			entidade.setDadoTipoDano(dado.getDadoTipoDano());
+			entidade.setPeso(dado.getPeso());
+			entidade.setPropriedades(dado.getPropriedades());
+			entidade.setObservacao(dado.getObservacao());
+		}
+
+		return entidade;
+	}
+
+	@Override
+	public ArmaDTO toDto(Arma dado) {
+		dto = new ArmaDTO();
 
 		if (dado != null) {
 			dto.setId(dado.getId());
@@ -27,44 +50,30 @@ public class ArmaMapper {
 		return dto;
 	}
 
-	public Arma convertDtoToEntity(ArmaDTO dto) {
-		Arma entity = new Arma();
+	@Override
+	public List<Arma> toListEntity(List<ArmaDTO> listaDados) {
+		listaEntidade = new ArrayList<>();
 
-		if (dto != null) {
-			entity.setId(dto.getId());
-			entity.setNome(dto.getNome());
-			entity.setCustoMoeda(dto.getCustoMoeda());
-			entity.setDadoTipoDano(dto.getDadoTipoDano());
-			entity.setPeso(dto.getPeso());
-			entity.setPropriedades(dto.getPropriedades());
-			entity.setObservacao(dto.getObservacao());
-		}
-
-		return entity;
-	}
-
-	public List<ArmaDTO> convertListEntityToListDto(List<Arma> listaDado) {
-		List<ArmaDTO> listDto = new ArrayList<>();
-
-		if (listaDado != null) {
-			for (Arma dado : listaDado) {
-				listDto.add(convertEntityToDto(dado));
+		if (listaDados != null) {
+			for (ArmaDTO dado : listaDados) {
+				listaEntidade.add(toEntity(dado));
 			}
 		}
 
-		return listDto;
+		return listaEntidade;
 	}
 
-	public List<Arma> convertListDtoToListEntity(List<ArmaDTO> listaDto) {
-		List<Arma> listDado = new ArrayList<>();
+	@Override
+	public List<ArmaDTO> toListDto(List<Arma> listaDados) {
+		listaDTO = new ArrayList<>();
 
-		if (listaDto != null) {
-			for (ArmaDTO dado : listaDto) {
-				listDado.add(convertDtoToEntity(dado));
+		if (listaDados != null) {
+			for (Arma dado : listaDados) {
+				listaDTO.add(toDto(dado));
 			}
 		}
 
-		return listDado;
+		return listaDTO;
 	}
 
 }

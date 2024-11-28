@@ -34,7 +34,7 @@ public class ArmaduraServiceImpl implements ArmaduraService {
 	}
 
 	@Override
-	public Armadura getArmadura(Long id) {
+	public Armadura getById(Long id) {
 		Optional<Armadura> dado = repository.findById(id);
 
 		if (!dado.isPresent()) {
@@ -52,20 +52,20 @@ public class ArmaduraServiceImpl implements ArmaduraService {
 			return new Armadura();
 		}
 
-		dado = mapper.convertDtoToEntity(dto);
+		dado = mapper.toEntity(dto);
 
 		return repository.save(dado);
 	}
 
 	@Override
-	public Armadura update(ArmaduraDTO dto) {
+	public Armadura update(Long id, ArmaduraDTO dto) {
 		Armadura dadoAtual = repository.getArmadura(dto.getNome());
 
 		if (dadoAtual == null) {
 			return new Armadura();
 		}
 
-		Armadura dadoNovo = mapper.convertDtoToEntity(dto);
+		Armadura dadoNovo = mapper.toEntity(dto);
 
 		dadoNovo = this.validaCamposUpdate(dadoAtual, dadoNovo);
 

@@ -45,39 +45,46 @@ public class Monstro {
 
 	@Column(name = "DESLOCAMENTO_TERRESTRE")
 	private String desloc_t;
-	
+
 	@Column(name = "DESLOCAMENTO_ESCALADA")
 	private String desloc_e;
-	
+
 	@Column(name = "DESLOCAMENTO_NATACAO")
 	private String desloc_n;
-	
+
 	@Column(name = "DESLOCAMENTO_VOO")
 	private String desloc_v;
-	
+
 	@Column(name = "DESLOCAMENTO_SUBTERRANEO")
 	private String desloc_s;
 
 	@Column(name = "BONUS_PROFICIENCIA")
 	private String bp;
+
 	@Column(name = "FORCA")
 	private String str;
+
 	@Column(name = "DESTREZA")
 	private String dex;
+
 	@Column(name = "CONSTITUICAO")
 	private String con;
+
 	@Column(name = "INTELIGENCIA")
 	private String inte;
+
 	@Column(name = "SABEDORIA")
 	private String wis;
+
 	@Column(name = "CARISMA")
 	private String cha;
+
 	@Column(name = "NIVEL_DIFICULDADE")
 	private String nd;
 
 	@Column(name = "TRACOS", columnDefinition = "TEXT")
 	private String tracos;
-	
+
 	@Column(name = "CARACTERISTICAS", columnDefinition = "TEXT")
 	private String caracteristicas;
 
@@ -86,8 +93,7 @@ public class Monstro {
 
 	@Column(name = "ACOES_LENDARIAS", columnDefinition = "TEXT")
 	private String acoeslendarias;
-	
+
 	@Column(name = "ACOES_MITICAS", columnDefinition = "TEXT")
 	private String acoesmiticas;
-	
 }

@@ -1,4 +1,4 @@
-package br.com.euphoriarpg.controller;
+package br.com.euphoriarpg.rest.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ public class NpcController {
 	@GetMapping(value = "/consulta/{id}", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<NpcDTO> getNpc(@PathVariable Long id) {
 		NpcDTO dto = new NpcDTO();
-		dto = this.mapper.convertEntityToDto(this.service.getNpc(id));
+		dto = this.mapper.convertEntityToDto(this.service.getById(id));
 		return new ResponseEntity<NpcDTO>(dto, HttpStatus.OK);
 	}
 	

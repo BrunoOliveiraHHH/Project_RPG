@@ -35,7 +35,7 @@ public class ArmaServiceImpl implements ArmaService {
 	}
 
 	@Override
-	public Arma getArma(Long id) {
+	public Arma getById(Long id) {
 		Optional<Arma> dado = repository.findById(id);
 
 		if (!dado.isPresent()) {
@@ -53,20 +53,20 @@ public class ArmaServiceImpl implements ArmaService {
 			return new Arma();
 		}
 
-		dado = mapper.convertDtoToEntity(dto);
+		dado = mapper.toEntity(dto);
 
 		return repository.save(dado);
 	}
 
 	@Override
-	public Arma update(ArmaDTO dto) {
+	public Arma update(Long id, ArmaDTO dto) {
 		Arma dadoAtual = repository.getArma(dto.getNome());
 
 		if (dadoAtual == null) {
 			return new Arma();
 		}
 
-		Arma dadoNovo = mapper.convertDtoToEntity(dto);
+		Arma dadoNovo = mapper.toEntity(dto);
 
 		dadoNovo = this.validaCamposUpdate(dadoAtual, dadoNovo);
 

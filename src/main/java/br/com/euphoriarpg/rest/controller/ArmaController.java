@@ -1,4 +1,4 @@
-package br.com.euphoriarpg.controller;
+package br.com.euphoriarpg.rest.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ import br.com.euphoriarpg.model.dto.ArmaDTO;
 import br.com.euphoriarpg.model.mapper.ArmaMapper;
 import br.com.euphoriarpg.model.service.ArmaService;
 import br.com.euphoriarpg.model.util.MediaType;
+import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,28 +35,28 @@ public class ArmaController {
 	@GetMapping(value = "/consulta", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<List<ArmaDTO>> getAll() {
 		List<ArmaDTO> listaDto = new ArrayList<>();
-		listaDto = this.mapper.convertListEntityToListDto(this.service.getAll());
+		listaDto = this.mapper.toListDto(this.service.getAll());
 		return new ResponseEntity<List<ArmaDTO>>(listaDto, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/consulta/{id}", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<ArmaDTO> getNpc(@PathVariable Long id) {
 		ArmaDTO dto = new ArmaDTO();
-		dto = this.mapper.convertEntityToDto(this.service.getArma(id));
+		dto = this.mapper.toDto(this.service.getById(id));
 		return new ResponseEntity<ArmaDTO>(dto, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/salvar", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
 	public ResponseEntity<ArmaDTO> create(@RequestBody ArmaDTO dtoInput) {
 		ArmaDTO dto = new ArmaDTO();
-		dto = this.mapper.convertEntityToDto(this.service.create(dtoInput));
+		dto = this.mapper.toDto(this.service.create(dtoInput));
 		return new ResponseEntity<ArmaDTO>(dto, HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/alterar", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
-	public ResponseEntity<ArmaDTO> update(@RequestBody ArmaDTO dtoInput) {
+	@PutMapping(value = "/alterar/{id}", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
+	public ResponseEntity<ArmaDTO> update(@PathParam("id") Long id, @RequestBody ArmaDTO dtoInput) {
 		ArmaDTO dto = new ArmaDTO();
-		dto = this.mapper.convertEntityToDto(this.service.update(dtoInput));
+		dto = this.mapper.toDto(this.service.update(id,dtoInput));
 		return new ResponseEntity<ArmaDTO>(dto, HttpStatus.NO_CONTENT);
 	}
 

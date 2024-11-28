@@ -37,43 +37,4 @@ public class Veiculo {
 	@Column(name = "CARGA")
 	private String carga;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCustoMoeda() {
-		return custoMoeda;
-	}
-
-	public void setCustoMoeda(String custoMoeda) {
-		this.custoMoeda = custoMoeda;
-	}
-
-	public String getDeslocamento() {
-		return deslocamento;
-	}
-
-	public void setDeslocamento(String deslocamento) {
-		this.deslocamento = deslocamento;
-	}
-
-	public String getCarga() {
-		return carga;
-	}
-
-	public void setCarga(String carga) {
-		this.carga = carga;
-	}
 }

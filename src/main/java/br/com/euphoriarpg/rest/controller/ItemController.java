@@ -1,4 +1,4 @@
-package br.com.euphoriarpg.controller;
+package br.com.euphoriarpg.rest.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ import br.com.euphoriarpg.model.dto.ItemDTO;
 import br.com.euphoriarpg.model.mapper.ItemMapper;
 import br.com.euphoriarpg.model.service.ItemService;
 import br.com.euphoriarpg.model.util.MediaType;
+import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -41,7 +42,7 @@ public class ItemController {
 	@GetMapping(value = "/consulta/{id}", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<ItemDTO> getNpc(@PathVariable Long id) {
 		ItemDTO dto = new ItemDTO();
-		dto = this.mapper.convertEntityToDto(this.service.getItem(id));
+		dto = this.mapper.convertEntityToDto(this.service.getById(id));
 		return new ResponseEntity<ItemDTO>(dto, HttpStatus.OK);
 	}
 
@@ -52,10 +53,10 @@ public class ItemController {
 		return new ResponseEntity<ItemDTO>(dto, HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/alterar", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
-	public ResponseEntity<ItemDTO> update(@RequestBody ItemDTO dtoInput) {
+	@PutMapping(value = "/alterar/{id}", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
+	public ResponseEntity<ItemDTO> update(@PathParam("id") Long id, @RequestBody ItemDTO dtoInput) {
 		ItemDTO dto = new ItemDTO();
-		dto = this.mapper.convertEntityToDto(this.service.update(dtoInput));
+		dto = this.mapper.convertEntityToDto(this.service.update(id, dtoInput));
 		return new ResponseEntity<ItemDTO>(dto, HttpStatus.OK);
 	}
 
