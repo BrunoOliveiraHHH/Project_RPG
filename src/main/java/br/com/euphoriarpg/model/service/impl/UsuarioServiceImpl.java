@@ -9,9 +9,12 @@ import org.springframework.stereotype.Service;
 
 import br.com.euphoriarpg.model.dto.UsuarioDTO;
 import br.com.euphoriarpg.model.entity.Usuario;
+import br.com.euphoriarpg.model.exceptions.AplicacaoException;
+import br.com.euphoriarpg.model.exceptions.ExceptionValidacoes;
 import br.com.euphoriarpg.model.mapper.UsuarioMapper;
 import br.com.euphoriarpg.model.repository.UsuarioRepository;
 import br.com.euphoriarpg.model.service.UsuarioService;
+import br.com.euphoriarpg.model.util.StringUtils;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -76,7 +79,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public Usuario getByNome(String nome) {	
+	public List<Usuario> getByNome(String nome) {	
+		
+		if(StringUtils.isNullorEmpty(nome)) {
+			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
+		}
 		
 		return null;
 	}

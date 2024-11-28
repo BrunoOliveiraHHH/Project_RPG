@@ -1,5 +1,8 @@
 package br.com.euphoriarpg.rest.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +38,9 @@ public class UsuarioController {
 	}
 	
 	@GetMapping(value="/consultar/{nome}", produces= MediaType.APPLICATION_JSON)
-	public ResponseEntity<UsuarioDTO> consultarPorNome(@PathParam("nome") String nome){
-		UsuarioDTO dto = new UsuarioDTO();
-		dto = this.mapper.toDto(this.service.getByNome(nome));
-		return new ResponseEntity<UsuarioDTO>(dto, HttpStatus.OK);
+	public ResponseEntity<List<UsuarioDTO>> consultarPorNome(@PathParam("nome") String nome){
+		List<UsuarioDTO> dto = new ArrayList<>();
+		dto = this.mapper.toListDto(this.service.getByNome(nome));
+		return new ResponseEntity<List<UsuarioDTO>>(dto, HttpStatus.OK);
 	}
 }

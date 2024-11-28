@@ -4,13 +4,15 @@ public class AplicacaoException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	// Parameterless Constructor
-	public AplicacaoException() {}
+	public AplicacaoException() {
+	}
 
-	// Constructor that accepts a message
-	public AplicacaoException(String message)
-    {
-       super(message);
-    }
+	public AplicacaoException(String message) {
+		super(message);
+	}
+
+	public AplicacaoException(ExceptionValidacoes message) {
+		super(message.getMessage());
+	}
 
 }
