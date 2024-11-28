@@ -9,5 +9,7 @@ import br.com.euphoriarpg.model.entity.Usuario;
 public interface UsuarioService extends GenericService<Usuario, UsuarioDTO>{
 		
 	Usuario getbyLogin(String login);
+	
+	Usuario getByNome(String nome);
 
 }

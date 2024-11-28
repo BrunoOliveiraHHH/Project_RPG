@@ -61,9 +61,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public List<Usuario> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Usuario> getAll() {		
+		return repository.findAll();
 	}
 
 	@Override
@@ -74,5 +73,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public Usuario getbyLogin(String login) {
 		return repository.getByLogin(login);
+	}
+
+	@Override
+	public Usuario getByNome(String nome) {	
+		
+		return null;
 	}
 }
