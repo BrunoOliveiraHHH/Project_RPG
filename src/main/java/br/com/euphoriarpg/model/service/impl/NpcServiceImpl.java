@@ -1,5 +1,6 @@
 package br.com.euphoriarpg.model.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,9 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.euphoriarpg.model.dto.NpcDTO;
+import br.com.euphoriarpg.model.entity.LogAuditoria;
 import br.com.euphoriarpg.model.entity.Npc;
+import br.com.euphoriarpg.model.enums.AcaoEnum;
 import br.com.euphoriarpg.model.exceptions.AplicacaoException;
+import br.com.euphoriarpg.model.exceptions.ExceptionValidacoes;
+import br.com.euphoriarpg.model.mapper.NpcMapper;
 import br.com.euphoriarpg.model.repository.NpcRepository;
+import br.com.euphoriarpg.model.service.LogAuditoriaService;
 import br.com.euphoriarpg.model.service.NpcService;
 
 
@@ -18,13 +24,19 @@ public class NpcServiceImpl implements NpcService {
 
 	@Autowired
 	private NpcRepository repository;
+	
+	@Autowired
+	private NpcMapper mapper;
+
+	@Autowired
+	private LogAuditoriaService logAuditoria;
 
 	@Override
 	public List<Npc> getAll() {
 		List<Npc> listaDados = repository.findAll();
 
-		if (listaDados == null) {
-			throw new AplicacaoException("Npc não encontrado!");
+		if (listaDados == null || listaDados.isEmpty()) {
+			throw new AplicacaoException(ExceptionValidacoes.SEM_RETORNO_CONSULTA);
 		}
 
 		return listaDados;
@@ -34,61 +46,55 @@ public class NpcServiceImpl implements NpcService {
 	public Npc getById(Long id) {
 		Optional<Npc> dado = repository.findById(id);
 
-		if (!dado.isPresent()) {
-			throw new AplicacaoException("Npc não encontrado!");
+		if (dado.isEmpty()) {
+			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 
 		return dado.get();
 	}
 
 	@Override
-	public Npc create(NpcDTO dado) {
-		Npc npc = repository.getNpc(dado.getNome(), dado.getIdade(), dado.getRaca(), dado.getClasse());
+	public Npc create(NpcDTO dto) {
+		Npc dado = repository.getNpc(dto.getNome(), dto.getIdade(), dto.getRaca(), dto.getClasse());
 
-		if (npc != null) {
-			throw new AplicacaoException("Npc já existe!");
+		if (dado != null) {
+			throw new AplicacaoException(ExceptionValidacoes.OBJETO_JA_EXISTENTE);
 		}
 
-		npc = new Npc();
-		npc.setNome(dado.getNome());
-		npc.setIdade(dado.getIdade());
-		npc.setRaca(dado.getRaca());
-		npc.setClasse(dado.getClasse());
+		dado = mapper.toEntity(dto);
 
-		return repository.save(npc);
+		logAuditoria.insertLog(new LogAuditoria(Npc.class.toGenericString(), null, dado.toString(),
+				AcaoEnum.INSERT, LocalDateTime.now(), dto.getUsuario()));
+
+		return repository.save(dado);
 	}
 
 	@Override
-	public Npc update(Long id, NpcDTO dado) {
-		Npc npcAtual = repository.findByIdNpc(id);
+	public Npc update(Long id, NpcDTO dto) {
+		Npc dadoAtual = repository.findByIdNpc(id);
 
-		if (npcAtual == null) {
-			throw new AplicacaoException("Npc não encontrado!");
+		if (dadoAtual == null) {
+			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 
-		npcAtual = this.validaCampoUpdate(npcAtual, dado);
+		Npc dadoNovo = mapper.toEntity(dto);
 
-		return repository.save(npcAtual);
+		dadoNovo = this.validaCamposUpdate(dadoAtual, dadoNovo);
+
+		logAuditoria.insertLog(new LogAuditoria(Npc.class.toGenericString(), dadoAtual.toString(),
+				dadoNovo.toString(), AcaoEnum.UPDATE, LocalDateTime.now(), dto.getUsuario()));
+
+		return repository.save(dadoNovo);
 	}
 
-	private Npc validaCampoUpdate(Npc npcAtual, NpcDTO dado) {
+	private Npc validaCamposUpdate(Npc npcAtual, Npc dadoNovo) {
 
-		npcAtual.setNome((npcAtual.getNome().equals(dado.getNome()) ? npcAtual.getNome() : dado.getNome()));
-		npcAtual.setIdade((npcAtual.getIdade().equals(dado.getIdade()) ? npcAtual.getIdade() : dado.getIdade()));
-		npcAtual.setRaca((npcAtual.getRaca().equals(dado.getRaca()) ? npcAtual.getRaca() : dado.getRaca()));
-		npcAtual.setClasse((npcAtual.getClasse().equals(dado.getClasse()) ? npcAtual.getClasse() : dado.getClasse()));
+		npcAtual.setNome((npcAtual.getNome().equals(dadoNovo.getNome()) ? npcAtual.getNome() : dadoNovo.getNome()));
+		npcAtual.setIdade((npcAtual.getIdade().equals(dadoNovo.getIdade()) ? npcAtual.getIdade() : dadoNovo.getIdade()));
+		npcAtual.setRaca((npcAtual.getRaca().equals(dadoNovo.getRaca()) ? npcAtual.getRaca() : dadoNovo.getRaca()));
+		npcAtual.setClasse((npcAtual.getClasse().equals(dadoNovo.getClasse()) ? npcAtual.getClasse() : dadoNovo.getClasse()));
 
 		return npcAtual;
-	}
-
-	@Override
-	public void delete(Long id) {
-		Optional<Npc> dado = repository.findById(id);
-		
-		if(dado.isEmpty()) {
-			throw new AplicacaoException("Npc não encontrado!");
-		}		
-		repository.deleteById(id);
 	}
 
 	@Override
@@ -100,6 +106,34 @@ public class NpcServiceImpl implements NpcService {
 		}
 
 		return dado;
+	}
+
+	@Override
+	public void delete(Long id) {
+		Optional<Npc> dado = repository.findById(id);
+
+		if (!dado.isPresent()) {
+			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
+		}
+
+		logAuditoria.insertLog(new LogAuditoria(Npc.class.toGenericString(), dado.toString(), null,
+				AcaoEnum.DELETE, LocalDateTime.now(), null));
+
+		repository.deleteById(id);
+	}
+
+	@Override
+	public void delete(Long id, String usuario) {
+		Optional<Npc> dado = repository.findById(id);
+
+		if (!dado.isPresent()) {
+			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
+		}
+
+		logAuditoria.insertLog(new LogAuditoria(Npc.class.toGenericString(), dado.toString(), null,
+				AcaoEnum.DELETE, LocalDateTime.now(), usuario));
+
+		repository.deleteById(id);
 	}
 
 }

@@ -37,4 +37,9 @@ public class Npc {
 	@Column(name = "CLASSE")
 	private String classe;
 
+	@Override
+	public String toString() {
+		return "Npc [id=" + id + ", nome=" + nome + ", idade=" + idade + ", raca=" + raca + ", classe=" + classe + "]";
+	}
+
 }

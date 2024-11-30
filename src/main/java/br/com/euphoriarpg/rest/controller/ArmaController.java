@@ -19,9 +19,7 @@ import br.com.euphoriarpg.model.mapper.ArmaMapper;
 import br.com.euphoriarpg.model.service.ArmaService;
 import br.com.euphoriarpg.model.util.MediaType;
 import jakarta.websocket.server.PathParam;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/arma")
 public class ArmaController {
@@ -61,9 +59,9 @@ public class ArmaController {
 	}
 
 	@SuppressWarnings("rawtypes")
-	@GetMapping(value = "/excluir/{id}")
-	public ResponseEntity delete(@PathVariable Long id) {
-		service.delete(id);
-		return new ResponseEntity(HttpStatus.NO_CONTENT);
+	@GetMapping(value = "/excluir/{id},{usuario}")
+	public ResponseEntity delete(@PathParam("id") Long id, @PathParam("usuario") String usuario) {
+		service.delete(id,usuario);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }

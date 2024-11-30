@@ -15,5 +15,6 @@ public class ItemDTO {
 	private String descricao;	
 	private String peso;
 	private String observacao;
+	private String usuario;
 	
 }

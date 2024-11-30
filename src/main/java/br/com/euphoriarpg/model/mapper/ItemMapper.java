@@ -9,60 +9,68 @@ import br.com.euphoriarpg.model.dto.ItemDTO;
 import br.com.euphoriarpg.model.entity.Item;
 
 @Service
-public class ItemMapper {
-	
-	public ItemDTO convertEntityToDto(Item dado) {
-		ItemDTO dto = new ItemDTO();
+public class ItemMapper implements GenericMapper<Item, ItemDTO>{
+
+	public List<Item> listaEntidade;
+	public List<ItemDTO> listaDTO;
+	public ItemDTO dto;
+	public Item entidade;
+
+	@Override
+	public Item toEntity(ItemDTO dado) {
+		entidade = new Item();
+
+		if (dado != null) {
+			entidade.setId(dado.getId());
+			entidade.setNome(dado.getNome());
+			entidade.setCustoMoeda(dado.getCustoMoeda());
+			entidade.setPeso(dado.getPeso());
+			entidade.setDescricao(dado.getDescricao());
+			entidade.setObservacao(dado.getObservacao());
+		}
+
+		return entidade;
+	}
+
+	@Override
+	public ItemDTO toDto(Item dado) {
+		dto = new ItemDTO();
 
 		if (dado != null) {
 			dto.setId(dado.getId());
 			dto.setNome(dado.getNome());
 			dto.setCustoMoeda(dado.getCustoMoeda());
-			dto.setDescricao(dado.getDescricao());
 			dto.setPeso(dado.getPeso());
+			dto.setDescricao(dado.getDescricao());
 			dto.setObservacao(dado.getObservacao());
 		}
 
 		return dto;
 	}
 
-	public Item convertDtoToEntity(ItemDTO dto) {
-		Item entity = new Item();
+	@Override
+	public List<Item> toListEntity(List<ItemDTO> listaDados) {
+		listaEntidade = new ArrayList<>();
 
-		if (dto != null) {
-			entity.setId(dto.getId());
-			entity.setNome(dto.getNome());
-			entity.setCustoMoeda(dto.getCustoMoeda());
-			entity.setDescricao(dto.getDescricao());
-			entity.setPeso(dto.getPeso());
-			entity.setObservacao(dto.getObservacao());
-		}
-
-		return entity;
-	}
-
-	public List<ItemDTO> convertListEntityToListDto(List<Item> listaDado) {
-		List<ItemDTO> listDto = new ArrayList<>();
-
-		if (listaDado != null) {
-			for (Item dado : listaDado) {
-				listDto.add(convertEntityToDto(dado));
+		if (listaDados != null) {
+			for (ItemDTO dado : listaDados) {
+				listaEntidade.add(toEntity(dado));
 			}
 		}
 
-		return listDto;
+		return listaEntidade;
 	}
 
-	public List<Item> convertListDtoToListEntity(List<ItemDTO> listaDto) {
-		List<Item> listDado = new ArrayList<>();
+	@Override
+	public List<ItemDTO> toListDto(List<Item> listaDados) {
+		listaDTO = new ArrayList<>();
 
-		if (listaDto != null) {
-			for (ItemDTO dado : listaDto) {
-				listDado.add(convertDtoToEntity(dado));
+		if (listaDados != null) {
+			for (Item dado : listaDados) {
+				listaDTO.add(toDto(dado));
 			}
 		}
 
-		return listDado;
+		return listaDTO;
 	}
-
 }

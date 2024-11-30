@@ -37,13 +37,19 @@ public class Autenticacao {
 	@Column(name = "VALIDACAO")
 	private String validacao;
 
+	@Column(name = "DT_LOGIN")
+	private LocalDateTime dataLogin;
+
 	@Column(name = "DT_VALIDACAO")
 	private LocalDateTime dataValidade;
 
 	@Column(name = "SESSAO_ATIVA")
 	private AtivoInativoEnum sessaoAtiva;
 
-	@Column(name = "SESSAO_ENCERRADA", nullable = true)
-	private AtivoInativoEnum sessaoEncerrada;
+	@Override
+	public String toString() {
+		return "Autenticacao [id=" + id + ", idUsuario=" + idUsuario + ", login=" + login + ", validacao=" + validacao
+				+ ", dataLogin=" + dataLogin + ", dataValidade=" + dataValidade + ", sessaoAtiva=" + sessaoAtiva + "]";
+	}
 
 }

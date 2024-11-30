@@ -12,63 +12,65 @@ import br.com.euphoriarpg.model.entity.Usuario;
 public class UsuarioMapper implements GenericMapper<Usuario, UsuarioDTO> {
 
 	private UsuarioDTO dto;
-	private Usuario entity;
+	private Usuario entidade;
+	private List<Usuario> listaEntidade;
+	private List<UsuarioDTO> listaDTO;
 
 	@Override
-	public UsuarioDTO toDto(Usuario entity) {
+	public UsuarioDTO toDto(Usuario dado) {
 		dto = new UsuarioDTO();
 
-		if (entity != null) {
-			dto.setId(entity.getId());
-			dto.setNome(entity.getNome());
-			dto.setEmail(entity.getEmail());
-			dto.setLogin(entity.getLogin());
-			dto.setAnoNascimento(entity.getAnoNascimento());
-			dto.setSenha(entity.getSenha());
+		if (dado != null) {
+			dto.setId(dado.getId());
+			dto.setNome(dado.getNome());
+			dto.setEmail(dado.getEmail());
+			dto.setLogin(dado.getLogin());
+			dto.setAnoNascimento(dado.getAnoNascimento());
+			dto.setSenha(dado.getSenha());
 		}
 
 		return dto;
 	}
 
 	@Override
-	public Usuario toEntity(UsuarioDTO dto) {
-		entity = new Usuario();
+	public Usuario toEntity(UsuarioDTO dado) {
+		entidade = new Usuario();
 
-		if (dto != null) {
-			entity.setId(dto.getId());
-			entity.setNome(dto.getNome());
-			entity.setEmail(dto.getEmail());
-			entity.setLogin(dto.getLogin());
-			entity.setAnoNascimento(dto.getAnoNascimento());
-			entity.setSenha(dto.getSenha());
+		if (dado != null) {
+			entidade.setId(dado.getId());
+			entidade.setNome(dado.getNome());
+			entidade.setEmail(dado.getEmail());
+			entidade.setLogin(dado.getLogin());
+			entidade.setAnoNascimento(dado.getAnoNascimento());
+			entidade.setSenha(dado.getSenha());
 		}
 
-		return entity;
+		return entidade;
 	}
 
 	@Override
 	public List<Usuario> toListEntity(List<UsuarioDTO> listaDados) {
-		List<Usuario> listEntity = new ArrayList<>();
+		listaEntidade = new ArrayList<>();
 
 		if (!listaDados.isEmpty()) {
 			for (UsuarioDTO dto : listaDados) {
-				listEntity.add(toEntity(dto));
+				listaEntidade.add(toEntity(dto));
 			}
 		}
 
-		return listEntity;
+		return listaEntidade;
 	}
 
 	@Override
 	public List<UsuarioDTO> toListDto(List<Usuario> listaDados) {
-		List<UsuarioDTO> listDto = new ArrayList<>();
+		listaDTO = new ArrayList<>();
 
 		if (!listaDados.isEmpty()) {
 			for (Usuario entity : listaDados) {
-				listDto.add(toDto(entity));
+				listaDTO.add(toDto(entity));
 			}
 		}
 
-		return listDto;
+		return listaDTO;
 	}
 }

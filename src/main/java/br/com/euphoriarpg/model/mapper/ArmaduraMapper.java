@@ -35,10 +35,10 @@ public class ArmaduraMapper implements GenericMapper<Armadura, ArmaduraDTO>{
 	}
 
 	@Override
-	public Armadura toEntity(ArmaduraDTO dto) {
-		Armadura entidade = new Armadura();
+	public Armadura toEntity(ArmaduraDTO dado) {
+		entidade = new Armadura();
 
-		if (dto != null) {
+		if (dado != null) {
 			entidade.setId(dto.getId());
 			entidade.setNome(dto.getNome());
 			entidade.setCustoMoeda(dto.getCustoMoeda());

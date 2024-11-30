@@ -18,9 +18,8 @@ import br.com.euphoriarpg.model.dto.NpcDTO;
 import br.com.euphoriarpg.model.mapper.NpcMapper;
 import br.com.euphoriarpg.model.service.NpcService;
 import br.com.euphoriarpg.model.util.MediaType;
-import lombok.extern.slf4j.Slf4j;
+import jakarta.websocket.server.PathParam;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/npc")
 public class NpcController {
@@ -34,42 +33,42 @@ public class NpcController {
 	@GetMapping(value = "/consulta", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<List<NpcDTO>> getAll() {
 		List<NpcDTO> listaDto = new ArrayList<>();
-		listaDto = this.mapper.convertListEntityToListDto(this.service.getAll());
+		listaDto = this.mapper.toListDto(this.service.getAll());
 		return new ResponseEntity<List<NpcDTO>>(listaDto, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/consulta/{id}", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<NpcDTO> getNpc(@PathVariable Long id) {
 		NpcDTO dto = new NpcDTO();
-		dto = this.mapper.convertEntityToDto(this.service.getById(id));
+		dto = this.mapper.toDto(this.service.getById(id));
 		return new ResponseEntity<NpcDTO>(dto, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/consultaPorNome/{nome}", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<List<NpcDTO>> getNpc(@PathVariable String nome) {
 		List<NpcDTO> dto = new ArrayList<>();
-		dto = this.mapper.convertListEntityToListDto(this.service.getNpcByNome(nome));
+		dto = this.mapper.toListDto(this.service.getNpcByNome(nome));
 		return new ResponseEntity<List<NpcDTO>>(dto, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/salvar", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
 	public ResponseEntity<NpcDTO> create(@RequestBody NpcDTO dtoInput) {
 		NpcDTO dto = new NpcDTO();
-		dto = this.mapper.convertEntityToDto(this.service.create(dtoInput));
+		dto = this.mapper.toDto(this.service.create(dtoInput));
 		return new ResponseEntity<NpcDTO>(dto, HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/alterar/{id}", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
 	public ResponseEntity<NpcDTO> update(@PathVariable Long id, @RequestBody NpcDTO dtoInput) {
 		NpcDTO dto = new NpcDTO();
-		dto = this.mapper.convertEntityToDto(this.service.update(id,dtoInput));
+		dto = this.mapper.toDto(this.service.update(id,dtoInput));
 		return new ResponseEntity<NpcDTO>(dto, HttpStatus.OK);
 	}
 
 	@SuppressWarnings("rawtypes")
-	@GetMapping(value = "/excluir/{id}")
-	public ResponseEntity delete(@PathVariable Long id) {		
-		service.delete(id);
+	@GetMapping(value = "/excluir/{id},{usuario}")
+	public ResponseEntity delete(@PathParam("id") Long id, @PathParam("usuario") String usuario) {
+		service.delete(id,usuario);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 }

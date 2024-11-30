@@ -17,5 +17,6 @@ public class ArmaduraDTO {
 	private String furtividade;
 	private String peso;
 	private String observacao;
+	private String usuario;
 
 }

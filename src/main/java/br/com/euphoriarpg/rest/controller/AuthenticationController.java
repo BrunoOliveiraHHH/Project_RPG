@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.euphoriarpg.model.dto.AuthenticationDTO;
 import br.com.euphoriarpg.model.service.AuthenticationService;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/authentication")
 public class AuthenticationController {
@@ -28,13 +26,13 @@ public class AuthenticationController {
 	
 	@PostMapping(value="/encerra-sessao")
 	public ResponseEntity<Boolean> encerraSessao(@RequestBody AuthenticationDTO dtoInput){
-		Boolean encerrado = false;		
+		Boolean encerrado = service.encerraSessao(dtoInput);		
 		return new ResponseEntity<Boolean>(encerrado, HttpStatus.OK);
 	}
 	
 	@PostMapping(value="/sessao-ativa")
 	public ResponseEntity<Boolean> sessaoAtiva(@RequestBody AuthenticationDTO dtoInput){
-		Boolean ativa = false;		
+		Boolean ativa = service.sessaoAtiva(dtoInput);		
 		return new ResponseEntity<Boolean>(ativa, HttpStatus.OK);
 	}
 }

@@ -46,4 +46,10 @@ public class Armadura {
 	@Column(name = "OBSERVACAO")
 	private String observacao;
 
+	@Override
+	public String toString() {
+		return "Armadura [id=" + id + ", nome=" + nome + ", custoMoeda=" + custoMoeda + ", classeDeArmadura="
+				+ classeDeArmadura + ", forca=" + forca + ", furtividade=" + furtividade + ", peso=" + peso
+				+ ", observacao=" + observacao + "]";
+	}
 }

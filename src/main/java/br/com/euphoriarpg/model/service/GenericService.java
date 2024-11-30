@@ -14,4 +14,6 @@ public interface GenericService<E,D> {
 
 	E getById(Long id);
 
+	void delete(Long id, String usuario);
+
 }

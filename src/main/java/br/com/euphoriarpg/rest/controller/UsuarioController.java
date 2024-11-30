@@ -17,9 +17,7 @@ import br.com.euphoriarpg.model.mapper.UsuarioMapper;
 import br.com.euphoriarpg.model.service.UsuarioService;
 import br.com.euphoriarpg.model.util.MediaType;
 import jakarta.websocket.server.PathParam;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/usuario")
 public class UsuarioController {

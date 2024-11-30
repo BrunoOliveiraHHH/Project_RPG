@@ -20,7 +20,7 @@ public class ArmaMapper implements GenericMapper<Arma, ArmaDTO>{
 	public Arma toEntity(ArmaDTO dado) {
 		entidade = new Arma();
 
-		if (dto != null) {
+		if (dado != null) {
 			entidade.setId(dado.getId());
 			entidade.setNome(dado.getNome());
 			entidade.setCustoMoeda(dado.getCustoMoeda());

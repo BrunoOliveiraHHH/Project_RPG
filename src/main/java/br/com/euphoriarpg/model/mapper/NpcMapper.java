@@ -9,10 +9,31 @@ import br.com.euphoriarpg.model.dto.NpcDTO;
 import br.com.euphoriarpg.model.entity.Npc;
 
 @Service
-public class NpcMapper {
+public class NpcMapper implements GenericMapper<Npc, NpcDTO> {
 
-	public NpcDTO convertEntityToDto(Npc dado) {
-		NpcDTO dto = new NpcDTO();
+	public List<Npc> listaEntidade;
+	public List<NpcDTO> listaDTO;
+	public NpcDTO dto;
+	public Npc entidade;
+
+	@Override
+	public Npc toEntity(NpcDTO dado) {
+		entidade = new Npc();
+
+		if (dado != null) {
+			entidade.setId(dado.getId());
+			entidade.setNome(dado.getNome());
+			entidade.setIdade(dado.getIdade());
+			entidade.setRaca(dado.getRaca());
+			entidade.setClasse(dado.getClasse());
+		}
+
+		return entidade;
+	}
+
+	@Override
+	public NpcDTO toDto(Npc dado) {
+		dto = new NpcDTO();
 
 		if (dado != null) {
 			dto.setId(dado.getId());
@@ -25,22 +46,30 @@ public class NpcMapper {
 		return dto;
 	}
 
-	public List<NpcDTO> convertListEntityToListDto(List<Npc> listaDado) {
-		List<NpcDTO> listDto = new ArrayList<>();
-		NpcDTO dto;
+	@Override
+	public List<Npc> toListEntity(List<NpcDTO> listaDados) {
+		listaEntidade = new ArrayList<>();
 
-		if (listaDado != null) {
-			for (Npc dado : listaDado) {
-				dto = new NpcDTO();
-				dto.setId(dado.getId());
-				dto.setNome(dado.getNome());
-				dto.setIdade(dado.getIdade());
-				dto.setRaca(dado.getRaca());
-				dto.setClasse(dado.getClasse());
-				listDto.add(dto);
+		if (listaDados != null) {
+			for (NpcDTO dado : listaDados) {
+				listaEntidade.add(toEntity(dado));
 			}
 		}
 
-		return listDto;
+		return listaEntidade;
 	}
+
+	@Override
+	public List<NpcDTO> toListDto(List<Npc> listaDados) {
+		listaDTO = new ArrayList<>();
+
+		if (listaDados != null) {
+			for (Npc dado : listaDados) {
+				listaDTO.add(toDto(dado));
+			}
+		}
+
+		return listaDTO;
+	}
+
 }
