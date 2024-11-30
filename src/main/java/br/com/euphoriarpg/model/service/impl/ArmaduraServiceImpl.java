@@ -78,9 +78,9 @@ public class ArmaduraServiceImpl implements ArmaduraService {
 		Armadura dadoNovo = mapper.toEntity(dto);
 
 		dadoNovo = this.validaCamposUpdate(dadoAtual, dadoNovo);
-		
-		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), dadoAtual.toString(), dadoNovo.toString(),
-				AcaoEnum.UPDATE, LocalDateTime.now(), dto.getUsuario()));
+
+		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), dadoAtual.toString(),
+				dadoNovo.toString(), AcaoEnum.UPDATE, LocalDateTime.now(), dto.getUsuario()));
 
 		return repository.save(dadoNovo);
 	}
@@ -112,24 +112,24 @@ public class ArmaduraServiceImpl implements ArmaduraService {
 		if (!dado.isPresent()) {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
-		
+
 		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), dado.toString(), null,
 				AcaoEnum.DELETE, LocalDateTime.now(), null));
-		
+
 		repository.deleteById(id);
 	}
-	
+
 	@Override
-	public void delete(Long id,String usuario) {
+	public void delete(Long id, String usuario) {
 		Optional<Armadura> dado = repository.findById(id);
 
 		if (!dado.isPresent()) {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
-		
+
 		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), dado.toString(), null,
 				AcaoEnum.DELETE, LocalDateTime.now(), usuario));
-		
+
 		repository.deleteById(id);
 	}
 }

@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum AcaoEnum {
 	
-	INSERT("Insert"), UPDATE("Update"), DELETE("Delete"), LOGIN("Login");
+	INSERT("Insert"), UPDATE("Update"), DELETE("Delete"), LOGIN("Login"), SIGN_OUT("Sign Out");
 	
 	private String acao;
 

@@ -33,35 +33,35 @@ public class ItemController {
 	@GetMapping(value = "/consulta", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<List<ItemDTO>> getAll() {
 		List<ItemDTO> listaDto = new ArrayList<>();
-		listaDto = this.mapper.convertListEntityToListDto(this.service.getAll());
+		listaDto = this.mapper.toListDto(this.service.getAll());
 		return new ResponseEntity<List<ItemDTO>>(listaDto, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/consulta/{id}", produces = MediaType.APPLICATION_JSON)
 	public ResponseEntity<ItemDTO> getNpc(@PathVariable Long id) {
 		ItemDTO dto = new ItemDTO();
-		dto = this.mapper.convertEntityToDto(this.service.getById(id));
+		dto = this.mapper.toDto(this.service.getById(id));
 		return new ResponseEntity<ItemDTO>(dto, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/salvar", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
 	public ResponseEntity<ItemDTO> create(@RequestBody ItemDTO dtoInput) {
 		ItemDTO dto = new ItemDTO();
-		dto = this.mapper.convertEntityToDto(this.service.create(dtoInput));
+		dto = this.mapper.toDto(this.service.create(dtoInput));
 		return new ResponseEntity<ItemDTO>(dto, HttpStatus.OK);
 	}
 
 	@PutMapping(value = "/alterar/{id}", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
 	public ResponseEntity<ItemDTO> update(@PathParam("id") Long id, @RequestBody ItemDTO dtoInput) {
 		ItemDTO dto = new ItemDTO();
-		dto = this.mapper.convertEntityToDto(this.service.update(id, dtoInput));
+		dto = this.mapper.toDto(this.service.update(id, dtoInput));
 		return new ResponseEntity<ItemDTO>(dto, HttpStatus.OK);
 	}
 
 	@SuppressWarnings("rawtypes")
-	@GetMapping(value = "/excluir/{id}")
-	public ResponseEntity delete(@PathVariable Long id) {
-		service.delete(id);
+	@GetMapping(value = "/excluir/{id},{usuario}")
+	public ResponseEntity delete(@PathParam("id") Long id, @PathParam("usuario") String usuario) {
+		service.delete(id,usuario);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 }

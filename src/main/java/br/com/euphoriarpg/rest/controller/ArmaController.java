@@ -59,9 +59,9 @@ public class ArmaController {
 	}
 
 	@SuppressWarnings("rawtypes")
-	@GetMapping(value = "/excluir/{id}")
-	public ResponseEntity delete(@PathVariable Long id) {
-		service.delete(id);
-		return new ResponseEntity(HttpStatus.NO_CONTENT);
+	@GetMapping(value = "/excluir/{id},{usuario}")
+	public ResponseEntity delete(@PathParam("id") Long id, @PathParam("usuario") String usuario) {
+		service.delete(id,usuario);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }

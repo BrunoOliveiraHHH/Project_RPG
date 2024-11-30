@@ -1,6 +1,6 @@
 package br.com.euphoriarpg.model.service.impl;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,11 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.euphoriarpg.model.dto.ItemDTO;
+import br.com.euphoriarpg.model.entity.Armadura;
 import br.com.euphoriarpg.model.entity.Item;
+import br.com.euphoriarpg.model.entity.LogAuditoria;
+import br.com.euphoriarpg.model.enums.AcaoEnum;
 import br.com.euphoriarpg.model.exceptions.AplicacaoException;
+import br.com.euphoriarpg.model.exceptions.ExceptionValidacoes;
 import br.com.euphoriarpg.model.mapper.ItemMapper;
 import br.com.euphoriarpg.model.repository.ItemRepository;
 import br.com.euphoriarpg.model.service.ItemService;
+import br.com.euphoriarpg.model.service.LogAuditoriaService;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -22,13 +27,16 @@ public class ItemServiceImpl implements ItemService {
 
 	@Autowired
 	private ItemMapper mapper;
+	
+	@Autowired
+	private LogAuditoriaService logAuditoria;
 
 	@Override
 	public List<Item> getAll() {
 		List<Item> listaDados = repository.findAll();
 
-		if (listaDados == null) {
-			return new ArrayList<>();
+		if (listaDados == null || listaDados.isEmpty()) {
+			throw new AplicacaoException(ExceptionValidacoes.SEM_RETORNO_CONSULTA);
 		}
 
 		return listaDados;
@@ -38,8 +46,8 @@ public class ItemServiceImpl implements ItemService {
 	public Item getById(Long id) {
 		Optional<Item> dado = repository.findById(id);
 
-		if (!dado.isPresent()) {
-			return new Item();
+		if (dado.isEmpty()) {
+			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 
 		return dado.get();
@@ -50,10 +58,13 @@ public class ItemServiceImpl implements ItemService {
 		Item dado = repository.getItem(dto.getNome());
 
 		if (dado != null) {
-			return new Item();
+			throw new AplicacaoException(ExceptionValidacoes.OBJETO_JA_EXISTENTE);
 		}
 
-		dado = mapper.convertDtoToEntity(dto);
+		dado = mapper.toEntity(dto);
+
+		logAuditoria.insertLog(new LogAuditoria(Item.class.toGenericString(), null, dado.toString(),
+				AcaoEnum.INSERT, LocalDateTime.now(), dto.getUsuario()));
 
 		return repository.save(dado);
 	}
@@ -63,12 +74,15 @@ public class ItemServiceImpl implements ItemService {
 		Item dadoAtual = repository.getItem(dto.getNome());
 
 		if (dadoAtual == null) {
-			return new Item();
+			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 
-		Item dadoNovo = mapper.convertDtoToEntity(dto);
+		Item dadoNovo = mapper.toEntity(dto);
 
 		dadoNovo = this.validaCamposUpdate(dadoAtual, dadoNovo);
+
+		logAuditoria.insertLog(new LogAuditoria(Item.class.toGenericString(), dadoAtual.toString(),
+				dadoNovo.toString(), AcaoEnum.UPDATE, LocalDateTime.now(), dto.getUsuario()));
 
 		return repository.save(dadoNovo);
 	}
@@ -93,9 +107,28 @@ public class ItemServiceImpl implements ItemService {
 		Optional<Item> dado = repository.findById(id);
 
 		if (!dado.isPresent()) {
-			throw new AplicacaoException("Arma não existe.");
+			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
+
+		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), dado.toString(), null,
+				AcaoEnum.DELETE, LocalDateTime.now(), null));
+
 		repository.deleteById(id);
+	}
+
+	@Override
+	public void delete(Long id, String usuario) {
+		Optional<Item> dado = repository.findById(id);
+
+		if (!dado.isPresent()) {
+			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
+		}
+
+		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), dado.toString(), null,
+				AcaoEnum.DELETE, LocalDateTime.now(), usuario));
+
+		repository.deleteById(id);
+		
 	}
 
 }
