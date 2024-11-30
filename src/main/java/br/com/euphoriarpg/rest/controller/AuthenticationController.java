@@ -26,13 +26,13 @@ public class AuthenticationController {
 	
 	@PostMapping(value="/encerra-sessao")
 	public ResponseEntity<Boolean> encerraSessao(@RequestBody AuthenticationDTO dtoInput){
-		Boolean encerrado = false;		
+		Boolean encerrado = service.encerraSessao(dtoInput);		
 		return new ResponseEntity<Boolean>(encerrado, HttpStatus.OK);
 	}
 	
 	@PostMapping(value="/sessao-ativa")
 	public ResponseEntity<Boolean> sessaoAtiva(@RequestBody AuthenticationDTO dtoInput){
-		Boolean ativa = false;		
+		Boolean ativa = service.sessaoAtiva(dtoInput);		
 		return new ResponseEntity<Boolean>(ativa, HttpStatus.OK);
 	}
 }
