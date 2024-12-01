@@ -109,7 +109,7 @@ public class ArmaduraServiceImpl implements ArmaduraService {
 	public void delete(Long id) {
 		Optional<Armadura> dado = repository.findById(id);
 
-		if (!dado.isPresent()) {
+		if (dado.isEmpty()) {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 
@@ -123,7 +123,7 @@ public class ArmaduraServiceImpl implements ArmaduraService {
 	public void delete(Long id, String usuario) {
 		Optional<Armadura> dado = repository.findById(id);
 
-		if (!dado.isPresent()) {
+		if (dado.isEmpty()) {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 

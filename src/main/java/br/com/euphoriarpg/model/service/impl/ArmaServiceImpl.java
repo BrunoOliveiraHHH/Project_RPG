@@ -109,7 +109,7 @@ public class ArmaServiceImpl implements ArmaService {
 	public void delete(Long id) {
 		Optional<Arma> dado = repository.findById(id);
 
-		if (!dado.isPresent()) {
+		if (dado.isEmpty()) {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 
@@ -120,7 +120,7 @@ public class ArmaServiceImpl implements ArmaService {
 	public void delete(Long id, String usuario) {
 		Optional<Arma> dado = repository.findById(id);
 
-		if (!dado.isPresent()) {
+		if (dado.isEmpty()) {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 

@@ -106,7 +106,7 @@ public class ItemServiceImpl implements ItemService {
 	public void delete(Long id) {
 		Optional<Item> dado = repository.findById(id);
 
-		if (!dado.isPresent()) {
+		if (dado.isEmpty()) {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 
@@ -120,7 +120,7 @@ public class ItemServiceImpl implements ItemService {
 	public void delete(Long id, String usuario) {
 		Optional<Item> dado = repository.findById(id);
 
-		if (!dado.isPresent()) {
+		if (dado.isEmpty()) {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 

@@ -112,7 +112,7 @@ public class NpcServiceImpl implements NpcService {
 	public void delete(Long id) {
 		Optional<Npc> dado = repository.findById(id);
 
-		if (!dado.isPresent()) {
+		if (dado.isEmpty()) {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 
@@ -126,7 +126,7 @@ public class NpcServiceImpl implements NpcService {
 	public void delete(Long id, String usuario) {
 		Optional<Npc> dado = repository.findById(id);
 
-		if (!dado.isPresent()) {
+		if (dado.isEmpty()) {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 
