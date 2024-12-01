@@ -11,6 +11,6 @@ import br.com.euphoriarpg.model.entity.Item;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long>, JpaSpecificationExecutor<Item>{
 
-	@Query(value = "SELECT * FROM ITEM WHERE NOME=:nome", nativeQuery = true)
+	@Query(value = "SELECT * FROM ITEM WHERE UPPER(NOME)=UPPER(:nome)", nativeQuery = true)
 	Item getItem(@Param("nome") String nome);
 }
