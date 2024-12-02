@@ -2,7 +2,6 @@ package br.com.euphoriarpg.model.service.impl;
 
 import java.time.LocalDateTime;
 
-import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +15,7 @@ import br.com.euphoriarpg.model.repository.AuthenticationRepository;
 import br.com.euphoriarpg.model.service.AuthenticationService;
 import br.com.euphoriarpg.model.service.LogAuditoriaService;
 import br.com.euphoriarpg.model.service.UsuarioService;
+import br.com.euphoriarpg.model.util.EncodeDecodeBase64Util;
 import br.com.euphoriarpg.model.util.PasswordUtil;
 
 @Service
@@ -61,12 +61,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	private AuthenticationDTO geraAutenticadoDescriptografado(AuthenticationDTO dtoInput) {
 		AuthenticationDTO autenticado = new AuthenticationDTO();
-		
-		byte[] loginDecodificado = Base64.getDecoder().decode(dtoInput.getLogin());
-        autenticado.setLogin(new String(loginDecodificado));
-        byte[] senhaDecodificada = Base64.getDecoder().decode(dtoInput.getSenha());
-        autenticado.setSenha(new String(senhaDecodificada));
-
+		autenticado.setLogin(EncodeDecodeBase64Util.decode(dtoInput.getLogin()));
+		autenticado.setSenha(EncodeDecodeBase64Util.decode(dtoInput.getSenha()));
 		return autenticado;
 	}
 

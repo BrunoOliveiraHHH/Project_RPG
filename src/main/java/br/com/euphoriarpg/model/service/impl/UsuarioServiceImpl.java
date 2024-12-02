@@ -17,6 +17,7 @@ import br.com.euphoriarpg.model.mapper.UsuarioMapper;
 import br.com.euphoriarpg.model.repository.UsuarioRepository;
 import br.com.euphoriarpg.model.service.LogAuditoriaService;
 import br.com.euphoriarpg.model.service.UsuarioService;
+import br.com.euphoriarpg.model.util.EncodeDecodeBase64Util;
 import br.com.euphoriarpg.model.util.PasswordUtil;
 import br.com.euphoriarpg.model.util.StringUtils;
 
@@ -34,6 +35,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Usuario create(UsuarioDTO dado) {
+		dado = geraUsuarioDescriptografado(dado);
 		String nome = PasswordUtil.encryptPassword(dado.getNome());
 		String anoNascimento = PasswordUtil.encryptPassword(dado.getAnoNascimento());
 
@@ -44,6 +46,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 				AcaoEnum.INSERT, LocalDateTime.now(), dado.getLogin()));
 
 		return repository.save(entity);
+	}
+
+	private UsuarioDTO geraUsuarioDescriptografado(UsuarioDTO dado) {
+		UsuarioDTO dadoDecoded = new UsuarioDTO();
+		dadoDecoded.setAnoNascimento(EncodeDecodeBase64Util.decode(dado.getAnoNascimento()));
+		dadoDecoded.setEmail(EncodeDecodeBase64Util.decode(dado.getEmail()));
+		dadoDecoded.setLogin(EncodeDecodeBase64Util.decode(dado.getLogin()));
+		dadoDecoded.setNome(EncodeDecodeBase64Util.decode(dado.getNome()));
+		dadoDecoded.setSenha(EncodeDecodeBase64Util.decode(dado.getSenha()));		
+		return dadoDecoded;
 	}
 
 	@Override
