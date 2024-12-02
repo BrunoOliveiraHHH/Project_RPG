@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import br.com.euphoriarpg.model.enums.AcaoEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,6 +40,7 @@ public class LogAuditoria {
 	private String objNovo;
 
 	@Column(name = "ACAO")
+	@Enumerated(EnumType.STRING)
 	private AcaoEnum acao;
 
 	@Column(name = "DT_EVENTO")

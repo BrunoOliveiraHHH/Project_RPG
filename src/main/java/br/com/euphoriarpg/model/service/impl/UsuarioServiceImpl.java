@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.euphoriarpg.model.dto.UsuarioDTO;
-import br.com.euphoriarpg.model.entity.Armadura;
 import br.com.euphoriarpg.model.entity.LogAuditoria;
 import br.com.euphoriarpg.model.entity.Usuario;
 import br.com.euphoriarpg.model.enums.AcaoEnum;
@@ -41,7 +40,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Usuario entity = new Usuario(null, nome, dado.getEmail(), anoNascimento, dado.getLogin(),
 				PasswordUtil.encryptPassword(dado.getSenha()));
 		
-		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), null, dado.toString(),
+		logAuditoria.insertLog(new LogAuditoria(Usuario.class.toGenericString(), null, dado.toString(),
 				AcaoEnum.INSERT, LocalDateTime.now(), dado.getLogin()));
 
 		return repository.save(entity);

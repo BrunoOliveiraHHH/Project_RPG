@@ -14,25 +14,25 @@ import br.com.euphoriarpg.model.service.AuthenticationService;
 @RestController
 @RequestMapping(value = "/authentication")
 public class AuthenticationController {
-	
+
 	@Autowired
 	private AuthenticationService service;
 
 	@PostMapping(value = "/autenticar")
-	public ResponseEntity<Boolean> authentication(@RequestBody AuthenticationDTO dtoInput) {
-		Boolean autenticado = service.authentication(dtoInput);
-		return new ResponseEntity<Boolean>(autenticado, HttpStatus.OK);
+	public ResponseEntity<AuthenticationDTO> authentication(@RequestBody AuthenticationDTO dtoInput) {
+		AuthenticationDTO autenticado = service.authentication(dtoInput);
+		return new ResponseEntity<AuthenticationDTO>(autenticado, HttpStatus.OK);
 	}
-	
-	@PostMapping(value="/encerra-sessao")
-	public ResponseEntity<Boolean> encerraSessao(@RequestBody AuthenticationDTO dtoInput){
-		Boolean encerrado = service.encerraSessao(dtoInput);		
+
+	@PostMapping(value = "/encerra-sessao")
+	public ResponseEntity<Boolean> encerraSessao(@RequestBody AuthenticationDTO dtoInput) {
+		Boolean encerrado = service.encerraSessao(dtoInput);
 		return new ResponseEntity<Boolean>(encerrado, HttpStatus.OK);
 	}
-	
-	@PostMapping(value="/sessao-ativa")
-	public ResponseEntity<Boolean> sessaoAtiva(@RequestBody AuthenticationDTO dtoInput){
-		Boolean ativa = service.sessaoAtiva(dtoInput);		
-		return new ResponseEntity<Boolean>(ativa, HttpStatus.OK);
+
+	@PostMapping(value = "/sessao-ativa")
+	public ResponseEntity<AuthenticationDTO> sessaoAtiva(@RequestBody AuthenticationDTO dtoInput) {
+		AuthenticationDTO ativa = service.sessaoAtiva(dtoInput);
+		return new ResponseEntity<AuthenticationDTO>(ativa, HttpStatus.OK);
 	}
 }

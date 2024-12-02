@@ -6,19 +6,19 @@ import br.com.euphoriarpg.ProjectRpgApplication;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-  @Override
-  protected Class<?>[] getRootConfigClasses() {
-    return new Class[] {ProjectRpgApplication.class};
-  }
+	@Override
+	protected Class<?>[] getRootConfigClasses() {
+		return new Class[] { ProjectRpgApplication.class };
+	}
 
-  @Override
-  protected Class<?>[] getServletConfigClasses() {
-    return null;
-  }
+	@Override
+	protected Class<?>[] getServletConfigClasses() {
+		return null;
+	}
 
-  @Override
-  protected String[] getServletMappings() {
-    return new String[] {"/api/*"};
-  }
+	@Override
+	protected String[] getServletMappings() {
+		return new String[] { "/api/*" };
+	}
 
 }

@@ -34,8 +34,8 @@ public class UsuarioController {
 		dto = this.mapper.toDto(this.service.create(dtoInput));
 		return new ResponseEntity<UsuarioDTO>(dto, HttpStatus.OK);
 	}
-	
-	@GetMapping(value="/consultar/{nome}", produces= MediaType.APPLICATION_JSON)
+
+	@GetMapping(value = "/consultar/{nome}", produces= MediaType.APPLICATION_JSON)
 	public ResponseEntity<List<UsuarioDTO>> consultarPorNome(@PathParam("nome") String nome){
 		List<UsuarioDTO> dto = new ArrayList<>();
 		dto = this.mapper.toListDto(this.service.getByNome(nome));
