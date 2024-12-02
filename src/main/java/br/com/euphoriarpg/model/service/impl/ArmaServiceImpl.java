@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.euphoriarpg.model.dto.ArmaDTO;
 import br.com.euphoriarpg.model.entity.Arma;
-import br.com.euphoriarpg.model.entity.Armadura;
 import br.com.euphoriarpg.model.entity.LogAuditoria;
 import br.com.euphoriarpg.model.enums.AcaoEnum;
 import br.com.euphoriarpg.model.exceptions.AplicacaoException;
@@ -63,7 +62,7 @@ public class ArmaServiceImpl implements ArmaService {
 
 		dado = mapper.toEntity(dto);
 
-		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), null, dado.toString(),
+		logAuditoria.insertLog(new LogAuditoria(Arma.class.toGenericString(), null, dado.toString(),
 				AcaoEnum.INSERT, LocalDateTime.now(), dto.getUsuario()));
 
 		return repository.save(dado);
@@ -81,7 +80,7 @@ public class ArmaServiceImpl implements ArmaService {
 
 		dadoNovo = this.validaCamposUpdate(dadoAtual, dadoNovo);
 
-		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), dadoAtual.toString(),
+		logAuditoria.insertLog(new LogAuditoria(Arma.class.toGenericString(), dadoAtual.toString(),
 				dadoNovo.toString(), AcaoEnum.UPDATE, LocalDateTime.now(), dto.getUsuario()));
 
 		return repository.save(dadoNovo);
@@ -112,6 +111,9 @@ public class ArmaServiceImpl implements ArmaService {
 		if (dado.isEmpty()) {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
+		
+		logAuditoria.insertLog(new LogAuditoria(Arma.class.toGenericString(), dado.toString(), null,
+				AcaoEnum.DELETE, LocalDateTime.now(), null));
 
 		repository.deleteById(id);
 	}
@@ -124,7 +126,7 @@ public class ArmaServiceImpl implements ArmaService {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 
-		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), dado.toString(), null,
+		logAuditoria.insertLog(new LogAuditoria(Arma.class.toGenericString(), dado.toString(), null,
 				AcaoEnum.DELETE, LocalDateTime.now(), usuario));
 
 		repository.deleteById(id);

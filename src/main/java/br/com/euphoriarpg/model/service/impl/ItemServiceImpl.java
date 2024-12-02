@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.euphoriarpg.model.dto.ItemDTO;
-import br.com.euphoriarpg.model.entity.Armadura;
 import br.com.euphoriarpg.model.entity.Item;
 import br.com.euphoriarpg.model.entity.LogAuditoria;
 import br.com.euphoriarpg.model.enums.AcaoEnum;
@@ -110,7 +109,7 @@ public class ItemServiceImpl implements ItemService {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 
-		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), dado.toString(), null,
+		logAuditoria.insertLog(new LogAuditoria(Item.class.toGenericString(), dado.toString(), null,
 				AcaoEnum.DELETE, LocalDateTime.now(), null));
 
 		repository.deleteById(id);
@@ -124,7 +123,7 @@ public class ItemServiceImpl implements ItemService {
 			throw new AplicacaoException(ExceptionValidacoes.NAO_HA_OBJETO_CADASTRADO);
 		}
 
-		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), dado.toString(), null,
+		logAuditoria.insertLog(new LogAuditoria(Item.class.toGenericString(), dado.toString(), null,
 				AcaoEnum.DELETE, LocalDateTime.now(), usuario));
 
 		repository.deleteById(id);
