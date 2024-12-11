@@ -79,22 +79,10 @@ public class NpcServiceImpl implements NpcService {
 
 		Npc dadoNovo = mapper.toEntity(dto);
 
-		dadoNovo = this.validaCamposUpdate(dadoAtual, dadoNovo);
-
 		logAuditoria.insertLog(new LogAuditoria(Npc.class.toGenericString(), dadoAtual.toString(),
 				dadoNovo.toString(), AcaoEnum.UPDATE, LocalDateTime.now(), dto.getUsuario()));
 
 		return repository.save(dadoNovo);
-	}
-
-	private Npc validaCamposUpdate(Npc npcAtual, Npc dadoNovo) {
-
-		npcAtual.setNome((npcAtual.getNome().equals(dadoNovo.getNome()) ? npcAtual.getNome() : dadoNovo.getNome()));
-		npcAtual.setIdade((npcAtual.getIdade().equals(dadoNovo.getIdade()) ? npcAtual.getIdade() : dadoNovo.getIdade()));
-		npcAtual.setRaca((npcAtual.getRaca().equals(dadoNovo.getRaca()) ? npcAtual.getRaca() : dadoNovo.getRaca()));
-		npcAtual.setClasse((npcAtual.getClasse().equals(dadoNovo.getClasse()) ? npcAtual.getClasse() : dadoNovo.getClasse()));
-
-		return npcAtual;
 	}
 
 	@Override

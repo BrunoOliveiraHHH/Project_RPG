@@ -78,27 +78,10 @@ public class ItemServiceImpl implements ItemService {
 
 		Item dadoNovo = mapper.toEntity(dto);
 
-		dadoNovo = this.validaCamposUpdate(dadoAtual, dadoNovo);
-
 		logAuditoria.insertLog(new LogAuditoria(Item.class.toGenericString(), dadoAtual.toString(),
 				dadoNovo.toString(), AcaoEnum.UPDATE, LocalDateTime.now(), dto.getUsuario()));
 
 		return repository.save(dadoNovo);
-	}
-
-	private Item validaCamposUpdate(Item dadoAtual, Item dadoNovo) {
-
-		dadoAtual.setNome((dadoAtual.getNome().equals(dadoNovo.getNome()) ? dadoAtual.getNome() : dadoNovo.getNome()));
-		dadoAtual.setCustoMoeda((dadoAtual.getCustoMoeda().equals(dadoNovo.getCustoMoeda()) ? dadoAtual.getCustoMoeda()
-				: dadoNovo.getCustoMoeda()));
-		dadoAtual.setDescricao(
-				(dadoAtual.getDescricao().equals(dadoNovo.getDescricao()) ? dadoAtual.getDescricao()
-						: dadoNovo.getDescricao()));
-		dadoAtual.setObservacao((dadoAtual.getObservacao().equals(dadoNovo.getObservacao()) ? dadoAtual.getObservacao()
-				: dadoNovo.getObservacao()));
-		dadoAtual.setPeso((dadoAtual.getPeso().equals(dadoNovo.getPeso()) ? dadoAtual.getPeso() : dadoNovo.getPeso()));
-
-		return dadoAtual;
 	}
 
 	@Override

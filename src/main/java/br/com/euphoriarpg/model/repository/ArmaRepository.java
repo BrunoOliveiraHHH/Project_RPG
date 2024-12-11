@@ -11,7 +11,7 @@ import br.com.euphoriarpg.model.entity.Arma;
 @Repository
 public interface ArmaRepository extends JpaRepository<Arma, Long>, JpaSpecificationExecutor<Arma> {
 
-	@Query(value = "SELECT * FROM ARMA WHERE UPPER(NOME)=UPPER(:nome)", nativeQuery = true)
+	@Query(value = "SELECT * FROM ARMA WHERE NOME=:nome", nativeQuery = true)
 	Arma getArma(@Param("nome") String nome);
 
 }

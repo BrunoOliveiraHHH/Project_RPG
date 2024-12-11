@@ -35,7 +35,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Usuario create(UsuarioDTO dado) {
-		//dado = geraUsuarioDescriptografado(dado);
 		String nome = PasswordUtil.encryptPassword(dado.getNome());
 		String anoNascimento = PasswordUtil.encryptPassword(dado.getAnoNascimento());
 
@@ -46,16 +45,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 				AcaoEnum.INSERT, LocalDateTime.now(), dado.getLogin()));
 
 		return repository.save(entity);
-	}
-
-	private UsuarioDTO geraUsuarioDescriptografado(UsuarioDTO dado) {
-		UsuarioDTO dadoDecoded = new UsuarioDTO();
-		dadoDecoded.setAnoNascimento(EncodeDecodeBase64Util.decode(dado.getAnoNascimento()));
-		dadoDecoded.setEmail(dado.getEmail());
-		dadoDecoded.setLogin(dado.getLogin());
-		dadoDecoded.setNome(EncodeDecodeBase64Util.decode(dado.getNome()));
-		dadoDecoded.setSenha(dado.getSenha());		
-		return dadoDecoded;
 	}
 
 	@Override

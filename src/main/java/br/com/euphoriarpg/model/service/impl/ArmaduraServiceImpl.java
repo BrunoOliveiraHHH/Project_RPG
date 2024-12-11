@@ -77,32 +77,10 @@ public class ArmaduraServiceImpl implements ArmaduraService {
 
 		Armadura dadoNovo = mapper.toEntity(dto);
 
-		dadoNovo = this.validaCamposUpdate(dadoAtual, dadoNovo);
-
 		logAuditoria.insertLog(new LogAuditoria(Armadura.class.toGenericString(), dadoAtual.toString(),
 				dadoNovo.toString(), AcaoEnum.UPDATE, LocalDateTime.now(), dto.getUsuario()));
 
 		return repository.save(dadoNovo);
-	}
-
-	private Armadura validaCamposUpdate(Armadura dadoAtual, Armadura dadoNovo) {
-
-		dadoAtual.setNome((dadoAtual.getNome().equals(dadoNovo.getNome()) ? dadoAtual.getNome() : dadoNovo.getNome()));
-		dadoAtual.setCustoMoeda((dadoAtual.getCustoMoeda().equals(dadoNovo.getCustoMoeda()) ? dadoAtual.getCustoMoeda()
-				: dadoNovo.getCustoMoeda()));
-		dadoAtual.setClasseDeArmadura((dadoAtual.getClasseDeArmadura().equals(dadoNovo.getClasseDeArmadura())
-				? dadoAtual.getClasseDeArmadura()
-				: dadoNovo.getClasseDeArmadura()));
-		dadoAtual.setObservacao((dadoAtual.getObservacao().equals(dadoNovo.getObservacao()) ? dadoAtual.getObservacao()
-				: dadoNovo.getObservacao()));
-		dadoAtual.setPeso((dadoAtual.getPeso().equals(dadoNovo.getPeso()) ? dadoAtual.getPeso() : dadoNovo.getPeso()));
-		dadoAtual.setForca(
-				(dadoAtual.getForca().equals(dadoNovo.getForca()) ? dadoAtual.getForca() : dadoNovo.getForca()));
-		dadoAtual.setFurtividade(
-				(dadoAtual.getFurtividade().equals(dadoNovo.getFurtividade()) ? dadoAtual.getFurtividade()
-						: dadoNovo.getFurtividade()));
-
-		return dadoAtual;
 	}
 
 	@Override
