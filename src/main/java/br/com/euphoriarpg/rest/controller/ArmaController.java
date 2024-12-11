@@ -18,7 +18,6 @@ import br.com.euphoriarpg.model.dto.ArmaDTO;
 import br.com.euphoriarpg.model.mapper.ArmaMapper;
 import br.com.euphoriarpg.model.service.ArmaService;
 import br.com.euphoriarpg.model.util.MediaType;
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping(value = "/arma")
@@ -52,16 +51,15 @@ public class ArmaController {
 	}
 
 	@PutMapping(value = "/alterar/{id}", produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
-	public ResponseEntity<ArmaDTO> update(@PathParam("id") Long id, @RequestBody ArmaDTO dtoInput) {
+	public ResponseEntity<ArmaDTO> update(@PathVariable Long id, @RequestBody ArmaDTO dtoInput) {
 		ArmaDTO dto = new ArmaDTO();
 		dto = this.mapper.toDto(this.service.update(id,dtoInput));
 		return new ResponseEntity<ArmaDTO>(dto, HttpStatus.NO_CONTENT);
 	}
 
-	@SuppressWarnings("rawtypes")
 	@GetMapping(value = "/excluir/{id},{usuario}")
-	public ResponseEntity delete(@PathParam("id") Long id, @PathParam("usuario") String usuario) {
+	public ResponseEntity<String> delete(@PathVariable Long id, @PathVariable String usuario) {
 		service.delete(id,usuario);
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 }

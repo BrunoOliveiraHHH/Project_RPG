@@ -12,7 +12,7 @@ import br.com.euphoriarpg.model.repository.specifications.UsuarioRepositoryCusto
 @Repository
 public interface UsuarioRepository  extends JpaRepository<Usuario, Long>, JpaSpecificationExecutor<Usuario>, UsuarioRepositoryCustom {
 
-	@Query(value = "SELECT * FROM USUARIO WHERE UPPER(LOGIN)=UPPER(:login)", nativeQuery = true)
+	@Query(value = "SELECT * FROM USUARIO WHERE LOGIN = :login", nativeQuery = true)
 	Usuario getByLogin(@Param("login") String login);
 
 }

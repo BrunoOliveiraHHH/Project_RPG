@@ -18,7 +18,6 @@ import br.com.euphoriarpg.model.dto.NpcDTO;
 import br.com.euphoriarpg.model.mapper.NpcMapper;
 import br.com.euphoriarpg.model.service.NpcService;
 import br.com.euphoriarpg.model.util.MediaType;
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping(value = "/npc")
@@ -65,10 +64,8 @@ public class NpcController {
 		return new ResponseEntity<NpcDTO>(dto, HttpStatus.OK);
 	}
 
-	@SuppressWarnings("rawtypes")
 	@GetMapping(value = "/excluir/{id},{usuario}")
-	public ResponseEntity delete(@PathParam("id") Long id, @PathParam("usuario") String usuario) {
+	public void delete(@PathVariable Long id, @PathVariable String usuario) {
 		service.delete(id,usuario);
-		return new ResponseEntity(HttpStatus.OK);
 	}
 }

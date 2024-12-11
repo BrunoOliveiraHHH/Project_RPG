@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,6 @@ import br.com.euphoriarpg.model.dto.UsuarioDTO;
 import br.com.euphoriarpg.model.mapper.UsuarioMapper;
 import br.com.euphoriarpg.model.service.UsuarioService;
 import br.com.euphoriarpg.model.util.MediaType;
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping(value = "/usuario")
@@ -36,7 +36,7 @@ public class UsuarioController {
 	}
 
 	@GetMapping(value = "/consultar/{nome}", produces= MediaType.APPLICATION_JSON)
-	public ResponseEntity<List<UsuarioDTO>> consultarPorNome(@PathParam("nome") String nome){
+	public ResponseEntity<List<UsuarioDTO>> consultarPorNome(@PathVariable String nome){
 		List<UsuarioDTO> dto = new ArrayList<>();
 		dto = this.mapper.toListDto(this.service.getByNome(nome));
 		return new ResponseEntity<List<UsuarioDTO>>(dto, HttpStatus.OK);

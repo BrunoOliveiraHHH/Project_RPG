@@ -39,14 +39,14 @@ public class ArmaduraMapper implements GenericMapper<Armadura, ArmaduraDTO>{
 		entidade = new Armadura();
 
 		if (dado != null) {
-			entidade.setId(dto.getId());
-			entidade.setNome(dto.getNome());
-			entidade.setCustoMoeda(dto.getCustoMoeda());
-			entidade.setClasseDeArmadura(dto.getClasseDeArmadura());
-			entidade.setForca(dto.getForca());
-			entidade.setFurtividade(dto.getFurtividade());
-			entidade.setPeso(dto.getPeso());
-			entidade.setObservacao(dto.getObservacao());
+			entidade.setId(dado.getId());
+			entidade.setNome(dado.getNome());
+			entidade.setCustoMoeda(dado.getCustoMoeda());
+			entidade.setClasseDeArmadura(dado.getClasseDeArmadura());
+			entidade.setForca(dado.getForca());
+			entidade.setFurtividade(dado.getFurtividade());
+			entidade.setPeso(dado.getPeso());
+			entidade.setObservacao(dado.getObservacao());
 		}
 
 		return entidade;
