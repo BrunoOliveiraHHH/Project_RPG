@@ -17,7 +17,6 @@ import br.com.euphoriarpg.model.mapper.UsuarioMapper;
 import br.com.euphoriarpg.model.repository.UsuarioRepository;
 import br.com.euphoriarpg.model.service.LogAuditoriaService;
 import br.com.euphoriarpg.model.service.UsuarioService;
-import br.com.euphoriarpg.model.util.EncodeDecodeBase64Util;
 import br.com.euphoriarpg.model.util.PasswordUtil;
 import br.com.euphoriarpg.model.util.StringUtils;
 
